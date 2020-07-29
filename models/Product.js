@@ -11,10 +11,12 @@ class Product extends Model { }
 Product.init(
   {
     product_name: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false
     },
     price: {
-      type: DataTypes.FLOAT
+      type: DataTypes.FLOAT,
+      allowNull: false,
     },
     stock: {
       type: DataTypes.INTEGER

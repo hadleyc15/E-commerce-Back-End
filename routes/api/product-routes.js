@@ -6,30 +6,68 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 // get all products
 router.get('/', (req, res) => {
   Product.findAll({
-
-  })
+    attributes: [
+      'id',
+      'product_name',
+      'price',
+      'stock',
+      'category_id'
+    ],
+    include: [
+      {
+        model: Category,
+        attributes: ['id', 'category_name'],
+      },
+      {
+        model: Tag,
+        attributes: ['id', 'tag_name'],
+        through: ProductTag,
+        as: 'tags'
+      },
+    ]
+  }).then(dbProductData => res.json(dbProductData))
   // be sure to include its associated Category and Tag data
 });
 
 // get one product
+
 router.get('/:id', (req, res) => {
   Product.findOne({
-
-  })
+    where: {
+      id: req.params.id
+    },
+    attributes: [
+      'id',
+      'product_name',
+      'price',
+      'stock',
+      'category_id'
+    ],
+    include: [
+      {
+        model: Category,
+        attributes: ['id', 'category_name'],
+      },
+      {
+        model: Tag,
+        attributes: ['id', 'tag_name'],
+        through: ProductTag,
+        as: 'tags'
+      },
+    ]
+  }).then(dbProductData => res.json(dbProductData))
   // be sure to include its associated Category and Tag data
 });
 
+
 // create new product
 router.post('/', (req, res) => {
-  /* req.body should look like this...
-    {
-      product_name: "Basketball",
-      price: 200.00,
-      stock: 3,
-      tagIds: [1, 2, 3, 4]
-    }
-  */
-  Product.create(req.body)
+  Product.create({
+    product_name: req.body.product_name,
+    price: req.body.price,
+    stock: req.body.stock,
+    category_id: req.body.category_id
+  })
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
       if (req.body.tagIds.length) {
@@ -94,7 +132,24 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  // delete one product by its `id` value
+  Product.destroy({
+    where: {
+        id: req.params.id
+    }
+})
+.then(dbProductData => {
+    if (!dbProductData) {
+        res.status(404).json({
+            message: 'No product found with this id'
+        });
+        return;
+    }
+    res.json(dbProductData);
+})
+.catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+});
 });
 
 module.exports = router;

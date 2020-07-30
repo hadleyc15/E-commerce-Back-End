@@ -9,6 +9,7 @@
   * [Contributing](#contributing)
   * [Questions](#questions)
   * [Videos](#videos)
+  * [Screenshots](#screenshots)
 
   ## Description
 
@@ -61,7 +62,18 @@
 
   ## Videos
 
-  Demonstration of this project: 
+  Demonstration of this project: <link>https://drive.google.com/file/d/1l_w7MbBn2k4KWVV4mHjkHhzwDa6TSPK9/view</link>
 
+  ## Screenshots
 
+<img src="/images/Screenshot%20(79).png" />
 
+<img src="/images/Screenshot%20(80).png" />
+
+<img src="/images/Screenshot%20(81).png" />
+
+<img src="/images/Screenshot%20(82).png" />
+
+<img src="/images/Screenshot%20(83).png" />
+
+<img src="/images/Screenshot%20(84).png" />
